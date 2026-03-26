@@ -16,6 +16,7 @@ from src.handlers.generate import generate_handler
 from src.handlers.interpret import interpret_handler
 from src.handlers.modify import modify_handler
 from src.handlers.reset import reset_handler
+from src.reminders import register as register_reminders
 
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
@@ -47,6 +48,9 @@ def main() -> None:
 
     # Global error handler
     app.add_error_handler(error_handler)
+
+    # iCalendar reminder feature (self-contained; skips gracefully if unconfigured)
+    register_reminders(app, config)
 
     logger.info("Bot starting — polling for updates…")
     app.run_polling()
