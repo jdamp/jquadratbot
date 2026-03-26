@@ -42,7 +42,7 @@ async def generate_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -
 
     try:
         image_bytes = await generate_image(client=client, config=config, prompt=prompt)
-        await update.message.reply_photo(photo=io.BytesIO(image_bytes))
+        await update.message.reply_photo(photo=io.BytesIO(image_bytes), write_timeout=30)
     except ContentPolicyError:
         logger.info("Content policy violation in /generate")
         await update.message.reply_text(_ERROR_POLICY)

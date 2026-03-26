@@ -73,7 +73,7 @@ async def modify_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
             image_bytes=image_bytes,
             instruction=instruction,
         )
-        await update.message.reply_photo(photo=io.BytesIO(modified_bytes))
+        await update.message.reply_photo(photo=io.BytesIO(modified_bytes), write_timeout=30)
     except ContentPolicyError:
         logger.info("Content policy violation in /modify")
         await update.message.reply_text(_ERROR_POLICY)
