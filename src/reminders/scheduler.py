@@ -43,7 +43,6 @@ def register(app: Any, _config: BotConfig) -> None:
     app.job_queue.run_daily(
         _reminder_job,
         reminder_config.reminder_time,
-        tzinfo=reminder_config.timezone,
     )
     logger.info(
         "Reminder job scheduled daily at %s %s for chat %s",

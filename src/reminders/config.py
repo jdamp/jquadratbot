@@ -60,6 +60,6 @@ class ReminderConfig:
         return cls(
             ical_path=ical_path,
             chat_id=chat_id,
-            reminder_time=reminder_time,
+            reminder_time=reminder_time.replace(tzinfo=timezone),
             timezone=timezone,
         )
