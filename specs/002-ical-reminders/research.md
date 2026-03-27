@@ -19,14 +19,14 @@
 
 ## Decision 2: Scheduling mechanism
 
-**Decision**: Use `python-telegram-bot`'s built-in `JobQueue` (`application.job_queue.run_daily()`), which is already available when the bot runs.
+**Decision**: Use `python-telegram-bot`'s built-in `JobQueue` (`application.job_queue.run_daily()`), which requires the `[job-queue]` extra to be installed.
 
-**Rationale**: `python-telegram-bot ≥ 21.0` bundles APScheduler via its `JobQueue`, providing `run_daily(callback, time)`. This handles time-zone-aware scheduling and fires a single callback daily at the specified time. No additional scheduler dependency is needed. The existing `bot.py` already initialises an `Application` through `ApplicationBuilder`, which creates a `JobQueue` by default.
+**Rationale**: `python-telegram-bot[job-queue] ≥ 21.0` installs APScheduler as an optional dependency, enabling its `JobQueue` and `run_daily(callback, time)`. The timezone is set via the `tzinfo` attribute on the `datetime.time` object passed to `run_daily()`, not as a separate keyword argument. This handles time-zone-aware scheduling and fires a single callback daily at the specified time.
 
 **Alternatives considered**:
 - External cron + separate script — rejected; adds operational complexity (two processes, coordination) and conflicts with the "continuous process" assumption in the spec.
 - `asyncio` sleep loop — rejected; fragile, does not handle DST transitions or process restarts gracefully. `JobQueue` uses APScheduler which is robust.
-- `apscheduler` directly — rejected; already provided transitively by `python-telegram-bot`; direct use would duplicate the dependency.
+- `apscheduler` directly — rejected; already provided via the `python-telegram-bot[job-queue]` extra; direct use would duplicate the dependency.
 
 ---
 
@@ -46,7 +46,7 @@
 
 **Decision**: Read reminder timezone from a new `REMINDER_TIMEZONE` environment variable; default to `"Europe/Berlin"` (a sensible default given the example file's German municipal context).
 
-**Rationale**: The example iCal file is from a German municipal service. `python-telegram-bot`'s `run_daily()` accepts a `tzinfo` argument; `zoneinfo.ZoneInfo` (Python 3.9+ stdlib) provides correct DST handling without additional dependencies.
+**Rationale**: The example iCal file is from a German municipal service. `python-telegram-bot`'s `run_daily()` reads the timezone from the `tzinfo` attribute of the `datetime.time` object; `zoneinfo.ZoneInfo` (Python 3.9+ stdlib) provides correct DST handling without additional dependencies.
 
 **Alternatives considered**:
 - UTC only — rejected; a reminder at "18:00 local time" must fire at the correct wall-clock time regardless of DST.

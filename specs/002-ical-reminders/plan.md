@@ -10,7 +10,7 @@ Add automated day-before event reminders to the Telegram bot by parsing a locall
 ## Technical Context
 
 **Language/Version**: Python 3.14
-**Primary Dependencies**: `python-telegram-bot ≥ 21.0` (JobQueue/APScheduler), `icalendar ≥ 6.0`, `python-dateutil ≥ 2.9`, `zoneinfo` (stdlib)
+**Primary Dependencies**: `python-telegram-bot[job-queue] ≥ 21.0` (JobQueue/APScheduler), `icalendar ≥ 6.0`, `python-dateutil ≥ 2.9`, `zoneinfo` (stdlib)
 **Storage**: Local filesystem (single `.ics` file, read-only, re-read on each daily job execution)
 **Testing**: `pytest` with `pytest-asyncio`; unit tests for parser and formatter; integration test for full reminder flow
 **Target Platform**: Linux server (continuous process)
