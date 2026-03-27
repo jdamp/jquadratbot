@@ -6,7 +6,7 @@ from google import genai
 from google.genai import types
 
 from src.config import BotConfig
-from src.context import ChatSession
+from src.gemini.context import ChatSession
 from src.gemini.errors import GeminiError
 
 

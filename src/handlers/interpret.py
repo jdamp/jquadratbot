@@ -6,7 +6,7 @@ from telegram import Update
 from telegram.ext import ContextTypes
 
 from src.config import BotConfig
-from src.context import get_or_create_session, reset_session
+from src.gemini.context import get_or_create_session, reset_session
 from src.gemini.errors import GeminiError
 from src.gemini.interpret import interpret_image
 

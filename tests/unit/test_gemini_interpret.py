@@ -6,7 +6,7 @@ from unittest.mock import AsyncMock, MagicMock
 import pytest
 
 from src.config import BotConfig
-from src.context import ChatSession
+from src.gemini.context import ChatSession
 from src.gemini.errors import GeminiError
 
 

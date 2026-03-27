@@ -3,7 +3,7 @@
 from telegram import Update
 from telegram.ext import ContextTypes
 
-from src.context import reset_session, sessions
+from src.gemini.context import reset_session, sessions
 
 _MSG_CLEARED = (
     "Conversation cleared. I've forgotten our previous images \u2014 start fresh anytime!"

@@ -2,7 +2,7 @@
 
 from datetime import UTC, datetime, timedelta
 
-from src.context import ChatSession, get_or_create_session, reset_session, sessions
+from src.gemini.context import ChatSession, get_or_create_session, reset_session, sessions
 
 
 class TestChatSessionExpiry:

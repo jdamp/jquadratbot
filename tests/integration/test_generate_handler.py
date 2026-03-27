@@ -6,7 +6,7 @@ from unittest.mock import AsyncMock, MagicMock
 import pytest
 
 from src.config import BotConfig
-from src.context import sessions
+from src.gemini.context import sessions
 
 
 @pytest.fixture(autouse=True)

@@ -6,7 +6,7 @@ from unittest.mock import MagicMock
 import pytest
 
 from src.config import BotConfig
-from src.context import sessions
+from src.gemini.context import sessions
 from src.handlers.common import HELP_TEXT
 
 
@@ -206,7 +206,7 @@ class TestResetHandler:
         mock_update: MagicMock,
         mock_ptb_context: MagicMock,
     ) -> None:
-        from src.context import get_or_create_session
+        from src.gemini.context import get_or_create_session
         from src.handlers.reset import reset_handler
 
         chat_id = mock_update.effective_chat.id
